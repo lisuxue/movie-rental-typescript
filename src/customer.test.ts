@@ -1,16 +1,21 @@
 import {Customer} from "./customer";
 import {Rental} from "./rental";
-import {Movie} from "./movie";
+import {RegularMovie} from "./regularMovie";
+import {NewReleaseMovie} from "./newReleaseMovie";
+import {ChildrensMovie} from "./childrensMovie";
+import {TextStatementBuilder} from "./TextStatementBuilder";
 
 describe("Customer", () => {
     it("should test", () => {
         const customer = new Customer("Bob");
-        customer.addRental(new Rental(new Movie("Jaws", Movie.REGULAR), 2));
-        customer.addRental(new Rental(new Movie("Golden Eye", Movie.REGULAR), 3));
-        customer.addRental(new Rental(new Movie("Short New", Movie.NEW_RELEASE), 1));
-        customer.addRental(new Rental(new Movie("Long New", Movie.NEW_RELEASE), 2));
-        customer.addRental(new Rental(new Movie("Bambi", Movie.CHILDRENS), 3));
-        customer.addRental(new Rental(new Movie("Toy Story", Movie.CHILDRENS), 4));
+        customer.addRental(new Rental(new RegularMovie("Jaws"), 2));
+        customer.addRental(new Rental(new RegularMovie("Golden Eye"), 3));
+        customer.addRental(new Rental(new NewReleaseMovie("Short New"), 1));
+        customer.addRental(new Rental(new NewReleaseMovie("Long New"), 2));
+        customer.addRental(new Rental(new ChildrensMovie("Bambi"), 3));
+        customer.addRental(new Rental(new ChildrensMovie("Toy Story"), 4));
+
+        const statement = new TextStatementBuilder(customer);
 
         const expected = "" +
             "Rental Record for Bob\n" +
@@ -23,6 +28,6 @@ describe("Customer", () => {
             "Amount owed is 19.0\n" +
             "You earned 7 frequent renter points";
 
-        expect(customer.statement()).toBe(expected);
+        expect(statement.print()).toBe(expected);
     });
 });

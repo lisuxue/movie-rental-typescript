@@ -1,4 +1,5 @@
 import {Movie} from "./movie";
+import {NewReleaseMovie} from "./newReleaseMovie";
 
 export class Rental {
 
@@ -14,7 +15,15 @@ export class Rental {
         return this.daysRented;
     }
 
-    public getMovie(): Movie {
-        return this.movie;
+    public getMovieTitle(): string {
+        return this.movie.getTitle()
+    }
+
+    public getMoviePrice(): number {
+        return this.movie.computePriceFromDaysRented(this.daysRented)
+    }
+
+    public isTwoDaysNewReleaseRental(): boolean {
+        return  (this.movie instanceof NewReleaseMovie) && this.getDaysRented() > 1
     }
 }

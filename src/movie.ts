@@ -1,27 +1,14 @@
-export class Movie {
-
-    public static CHILDRENS = 2;
-    public static NEW_RELEASE = 1;
-    public static REGULAR = 0;
+export abstract class Movie {
 
     private title: string;
-    private priceCode: number;
 
-    public constructor(title: string, priceCode: number) {
+    public constructor(title: string) {
         this.title = title;
-        this.priceCode = priceCode;
-    }
-
-    public getPriceCode(): number {
-        return this.priceCode;
-    }
-
-    public setPriceCode(arg: number) {
-        this.priceCode = arg;
     }
 
     public getTitle(): string {
         return this.title;
     }
 
+    public abstract computePriceFromDaysRented(daysRented: number): number;
 }
